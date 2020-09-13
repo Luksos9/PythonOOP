@@ -1,4 +1,4 @@
-class Library:
+class BookLibrary:
 
     def __init__(self, listOfBooks):
         self.listOfBooks = listOfBooks
@@ -48,7 +48,7 @@ class Customer:
 listOfBooks = ["Harry Potter", "Lord of the Rings", "ET"]
 customerInitialBooks = []
 
-library = Library(listOfBooks)
+library = BookLibrary(listOfBooks)
 customer1 = Customer(customerInitialBooks)
 
 menu = "\nEnter 1 to display available books\n" \
