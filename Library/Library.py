@@ -72,6 +72,7 @@ while (user_input := input(menu)) != "4":
 
 print("Have a nice day!")
 
+# TODO: Add lower/upper case resistance
 # TODO: Add small database to store books there
 # TODO: Store list of initial books in separate file with database
 # TODO: Add time of 2 months for each book to be returned
