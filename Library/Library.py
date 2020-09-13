@@ -1,59 +1,77 @@
 class Library:
 
     def __init__(self, listOfBooks):
-        self.availableBooks = listOfBooks
+        self.listOfBooks = listOfBooks
 
-    def displayAvailableBooks(self):
-        print('\nAvailable Books:')
-        for book in self.availableBooks:
+    def displayBooks(self):
+        print("\nAvailable books:")
+        for book in self.listOfBooks:
             print(book)
-        print('')
 
     def lendBook(self, requestedBook):
-        if requestedBook in self.availableBooks:
-            print("You have sucessfully borrowed book!\n")
-            self.availableBooks.remove(requestedBook)
+        if requestedBook in self.listOfBooks:
+            print("Successfully borrowed book!")
+            listOfBooks.remove(requestedBook)
+            return requestedBook
         else:
-            print("Sorry, the book is not available\n")
+            print("Sorry no such book!")
 
-    def addBook(self, returnedBook):
-        self.availableBooks.append(returnedBook)
-        print("You have sucessfully returned book. Thank You!\n")
+    def addBook(self, givenBook):
+        if givenBook != None:
+            listOfBooks.append(givenBook)
+            print("Successfully returned book!")
 
 
 class Customer:
 
-    def requestBook(self):
-        self.book = input("Enter the name of a book that you would like to borrow: ") #przypisuje ksiazke do self.book
+    def __init__(self, customerInitialBooks):
+        self.customerBooks = customerInitialBooks
+
+    def addBook(self, Book):
+        return self.customerBooks.append(Book)
+
+    def borrowBook(self):
+        requestedBook = input("Enter book name: ")
+        self.book = requestedBook
         return self.book
 
-    def returnBook(self):
-        self.book = input("Enter the name of the book that you want to return: ")
-        return self.book
+    def giveBackBook(self):
+        toGiveBack = input("Enter book which you want to give back: ")
+        if toGiveBack in self.customerBooks:
+            self.customerBooks.remove(toGiveBack)
+            return toGiveBack
+        else:
+            print("You don't have this book")
+            return None
 
 
-library = Library(['How to win friends and influence people', '21 advice for 21st century', 'The Power of Habit'])
-customer = Customer()
+listOfBooks = ["Harry Potter", "Lord of the Rings", "ET"]
+customerInitialBooks = []
 
-message = "Enter 1 to display the available books\n" \
-          "Enter 2 to request for a book\n" \
-          "Enter 3 to return a book\n" \
-          "Enter 4 to exit\n" \
-          "\nYour choice: "
+library = Library(listOfBooks)
+customer1 = Customer(customerInitialBooks)
 
-while (user_choice := input(message)) != "4":
-    if user_choice == "1":
-        library.displayAvailableBooks()
-    elif user_choice == "2":
-        requestedBook = customer.requestBook()
-        library.lendBook(requestedBook)
-    elif user_choice == "3":
-        returnedBook = customer.returnBook()
-        library.addBook(returnedBook)
+menu = "\nEnter 1 to display available books\n" \
+       "Enter 2 to borrow a book\n" \
+       "Enter 3 to give back a book\n" \
+       "Enter 4 to exit\n" \
+       "Your choice: "
+
+while (user_input := input(menu)) != "4":
+    if user_input == "1":
+        library.displayBooks()
+    elif user_input == "2":
+        requestedBook = customer1.borrowBook()
+        checkedIfExist = library.lendBook(requestedBook)
+        customer1.addBook(checkedIfExist)
+    elif user_input == "3":
+        toGiveBack = customer1.giveBackBook()
+        library.addBook(toGiveBack)
     else:
-        print("Wrong choice, please choose number 1-4")
+        print("Wrong input! Please enter number 1-4.")
 
-# TODO: Improve option 3 so user will only be able to return book he has borrowed
+print("Have a nice day!")
+
 # TODO: Add small database to store books there
 # TODO: Store list of initial books in separate file with database
 # TODO: Add time of 2 months for each book to be returned
